@@ -27,6 +27,8 @@ class App extends Component {
     })
   }
  */
+
+  //Search for github users
   searchUsers = async text => {
     this.setState({
       loading: true
@@ -44,13 +46,26 @@ class App extends Component {
     })
   }
 
+  // Clear users in the UI
+  clearUsers = () => {
+    this.setState({
+      users: [],
+      loading: false
+    })
+  }
+
   render() {
+    const { users, loading } = this.state
     return (
       <div className='App'>
         <Navbar />
         <div className={'container'}>
-          <Search searchUsers={this.searchUsers} />
-          <Users loading={this.state.loading} users={this.state.users} />
+          <Search
+            searchUsers={this.searchUsers}
+            clearUsers={this.clearUsers}
+            showClear={users.length > 0 ? true : false}
+          />
+          <Users loading={loading} users={users} />
         </div>
       </div>
     )
